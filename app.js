@@ -1,12 +1,17 @@
 import express from "express";
-import { prisma } from "./prisma.js";
+import bookRouter from "./routes/book.js";
+import copyRouter from "./routes/copy.js";
+import personRouter from "./routes/person.js";
 
 const app = express();
 const port = 3000;
 
+app.use("/book", bookRouter);
+app.use("/person", personRouter);
+app.use("/copy", copyRouter);
+
 app.get("/", async (req, res) => {
-  const users = await prisma.user.findMany();
-  res.json(users);
+  res.send("oi");
 });
 
 app.listen(port, () => {
