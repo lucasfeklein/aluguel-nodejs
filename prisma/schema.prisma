@@ -15,6 +15,7 @@ model Person {
   name     String
   birthday String
   address  String
+  rentedCopies Copy[]
 }
 
 model Book {
@@ -26,10 +27,11 @@ model Book {
 }
 
 model Copy {
-  id     Int      @id @default(autoincrement())
-  book   Book @relation(fields: [bookId], references: [id])
-  bookId Int
-
+  id          Int      @id @default(autoincrement())
+  book        Book     @relation(fields: [bookId], references: [id])
+  bookId      Int
+  rentedBy    Person   @relation(fields: [rentedByPin], references: [pin])
+  rentedByPin String
 }
 
 
