@@ -28,10 +28,11 @@ model Book {
 
 model Copy {
   id          String   @id @default(uuid())
+  code        String   @unique
   book        Book     @relation(fields: [bookId], references: [id])
   bookId      String
-  rentedBy    Person   @relation(fields: [rentedByPin], references: [pin])
-  rentedByPin String
+  rentedBy    Person?   @relation(fields: [rentedByPin], references: [pin])
+  rentedByPin String?
 }
 
 
