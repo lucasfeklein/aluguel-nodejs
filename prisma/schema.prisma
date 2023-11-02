@@ -11,10 +11,10 @@ datasource db {
 }
 
 model Person {
-  pin      String    @id @unique
-  name     String
-  birthday String
-  address  String
+  pin          String    @id @unique
+  name         String
+  birthday     String
+  address      String
   rentedCopies Copy[]
 }
 
