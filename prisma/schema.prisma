@@ -19,7 +19,7 @@ model Person {
 }
 
 model Book {
-  id           Int      @id @default(autoincrement())
+  id           String      @id @default(uuid())
   title        String
   author       String
   isbn         String   @unique
@@ -27,9 +27,9 @@ model Book {
 }
 
 model Copy {
-  id          Int      @id @default(autoincrement())
+  id          String   @id @default(uuid())
   book        Book     @relation(fields: [bookId], references: [id])
-  bookId      Int
+  bookId      String
   rentedBy    Person   @relation(fields: [rentedByPin], references: [pin])
   rentedByPin String
 }
