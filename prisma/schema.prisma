@@ -19,7 +19,7 @@ model Person {
 }
 
 model Book {
-  id           String      @id @default(uuid())
+  id           String   @id @default(uuid())
   title        String
   author       String
   isbn         String   @unique
