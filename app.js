@@ -1,7 +1,5 @@
 import express from "express";
-import bookRouter from "./routes/book.js";
-import copyRouter from "./routes/copy.js";
-import personRouter from "./routes/person.js";
+import { bookRouter, copyRouter, personRouter } from "./routes/index.js";
 
 const app = express();
 const port = 3000;
