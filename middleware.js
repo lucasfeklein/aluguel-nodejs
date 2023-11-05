@@ -4,8 +4,6 @@ function verifyToken(req, res, next) {
   const tokenWithBearer = req.header("Authorization");
   const token = tokenWithBearer.slice(7);
 
-  console.log(token);
-
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
   }
