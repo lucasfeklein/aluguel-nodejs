@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
     if (person) {
       const token = jwt.sign({ pin: person.pin }, jwtSecretKey);
 
-      res.json({ token });
+      res.json({ token, person });
     } else {
       res.status(401).json({ message: "Invalid pin" });
     }
