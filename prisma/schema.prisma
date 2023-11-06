@@ -11,11 +11,12 @@ datasource db {
 }
 
 model Person {
-  pin          String    @id @unique
-  name         String
-  birthday     String
-  address      String
-  rentedCopies Copy[]
+  pin           String    @id @unique
+  name          String
+  birthday      String
+  address       String
+  rentedCopies  Copy[]
+  rentalHistory RentalHistory[]
 }
 
 model Book {
@@ -27,13 +28,23 @@ model Book {
 }
 
 model Copy {
-  id          String   @id @default(uuid())
-  code        String   @unique
-  book        Book     @relation(fields: [bookId], references: [id])
-  bookId      String
-  rentedBy    Person?   @relation(fields: [rentedByPin], references: [pin])
-  rentedByPin String?
+  id            String   @id @default(uuid())
+  code          String   @unique
+  book          Book     @relation(fields: [bookId], references: [id])
+  bookId        String
+  rentedBy      Person?   @relation(fields: [rentedByPin], references: [pin])
+  rentedByPin   String?
+  rentalHistory RentalHistory[]
 }
 
+model RentalHistory {
+  id             String   @id @unique @default(uuid())
+  copy           Copy     @relation(fields: [copyId], references: [id])
+  copyId         String
+  rentedBy       Person?  @relation(fields: [rentedByPin], references: [pin])
+  rentedByPin    String?
+  rentedAt       DateTime
+  returnedAt     DateTime?
+}
 
 
