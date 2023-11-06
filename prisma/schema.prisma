@@ -34,6 +34,7 @@ model Copy {
   bookId        String
   rentedBy      Person?   @relation(fields: [rentedByPin], references: [pin])
   rentedByPin   String?
+  isRented      Boolean   @default(false)
   rentalHistory RentalHistory[]
 }
 
