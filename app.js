@@ -19,7 +19,6 @@ app.use("/copy", copyRouter);
 app.use("/auth", authRouter);
 
 app.get("/", async (req, res) => {
-  console.log(process.env.JWT_SECRET_KEY);
   res.send("oi");
 });
 
