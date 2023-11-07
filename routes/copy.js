@@ -18,7 +18,7 @@ router.post("/rentcopy", verifyToken, async (req, res) => {
 
   // Check if the copy is already rented
   if (copy.isRented) {
-    res.status(400).json({ error: "Copy is already rented" });
+    return res.status(400).json({ error: "Copy is already rented" });
   }
 
   const currentDate = new Date(); // Get the current date and time
