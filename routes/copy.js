@@ -8,4 +8,6 @@ router.get("/", async (req, res) => {
   res.json(books);
 });
 
+router.post("/rentcopy", async (req, res) => {});
+
 export default router;
