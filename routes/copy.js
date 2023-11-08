@@ -1,5 +1,5 @@
 import express from "express";
-import { verifyToken } from "../middleware.js";
+import { checkLateReturns, verifyToken } from "../middleware.js";
 import { prisma } from "../prisma.js";
 
 const router = express.Router();
@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
   res.json(books);
 });
 
-router.post("/rentcopy", verifyToken, async (req, res) => {
+router.post("/rentcopy", verifyToken, checkLateReturns, async (req, res) => {
   const { copyId } = req.body;
 
   const pin = req.pin;

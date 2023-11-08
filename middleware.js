@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { prisma } from "./prisma.js";
 
 function verifyToken(req, res, next) {
   const tokenWithBearer = req.header("Authorization");
@@ -17,4 +18,33 @@ function verifyToken(req, res, next) {
   });
 }
 
-export { verifyToken };
+async function checkLateReturns(req, res, next) {
+  const pin = req.pin;
+
+  const rentalHistory = await prisma.rentalHistory.findMany({
+    where: {
+      rentedByPin: pin,
+      returnedAt: {
+        not: null,
+      },
+    },
+  });
+
+  const lateReturns = rentalHistory.filter((rental) => {
+    const { rentedAt, returnedAt } = rental;
+    const differenceInDays = (returnedAt - rentedAt) / (1000 * 60 * 60 * 24);
+    return differenceInDays > 14;
+  });
+
+  console.log("latereturns: ", lateReturns.length);
+
+  if (lateReturns.length >= 2) {
+    return res.status(400).json({
+      error: "You are not eligible to rent due to multiple late returns.",
+    });
+  }
+
+  next();
+}
+
+export { checkLateReturns, verifyToken };
