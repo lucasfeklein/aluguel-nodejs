@@ -10,13 +10,24 @@ router.get("/", verifyToken, async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  const { name, pin, address, birthday } = req.body;
+  try {
+    const { name, pin, address, birthday } = req.body;
 
-  const person = await prisma.person.create({
-    data: { name, pin, address, birthday },
-  });
+    if (!name || !pin || !address || !birthday) {
+      return res
+        .status(400)
+        .json({ error: "Please provide all required fields" });
+    }
 
-  res.json(person);
+    const person = await prisma.person.create({
+      data: { name, pin, address, birthday },
+    });
+
+    res.status(201).json(person); // Respond with a 201 status code for successful creation
+  } catch (error) {
+    console.error("Registration error:", error);
+    res.status(500).json({ error: "An internal server error occurred" });
+  }
 });
 
 export default router;
