@@ -9,4 +9,14 @@ router.get("/", verifyToken, async (req, res) => {
   res.json(person);
 });
 
+router.post("/register", async (req, res) => {
+  const { name, pin, address, birthday } = req.body;
+
+  const person = await prisma.person.create({
+    data: { name, pin, address, birthday },
+  });
+
+  res.json(person);
+});
+
 export default router;
