@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { prisma } from "./prisma.js";
+import { calculateDelayInDays } from "./utils.js";
 
 function verifyToken(req, res, next) {
   const tokenWithBearer = req.header("Authorization");
@@ -32,7 +33,7 @@ async function checkLateReturns(req, res, next) {
 
   const lateReturns = rentalHistory.filter((rental) => {
     const { rentedAt, returnedAt } = rental;
-    const differenceInDays = (returnedAt - rentedAt) / (1000 * 60 * 60 * 24);
+    const differenceInDays = calculateDelayInDays(rentedAt, returnedAt);
     return differenceInDays > 14;
   });
 
