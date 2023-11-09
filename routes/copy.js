@@ -64,8 +64,6 @@ router.put("/returncopy", verifyToken, async (req, res) => {
       },
     });
 
-    console.log("cheugie aqui");
-
     if (!updatedCopy) {
       return res
         .status(404)

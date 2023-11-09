@@ -36,8 +36,6 @@ async function checkLateReturns(req, res, next) {
     return differenceInDays > 14;
   });
 
-  console.log("latereturns: ", lateReturns.length);
-
   if (lateReturns.length >= 2) {
     return res.status(400).json({
       error: "You are not eligible to rent due to multiple late returns.",
