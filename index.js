@@ -1,6 +1,5 @@
 import cors from "cors";
 import express from "express";
-import { prisma } from "./prisma.js";
 import {
   authRouter,
   bookRouter,
